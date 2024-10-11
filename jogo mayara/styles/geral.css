@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  height: 100vh;
+  background-color: #212b36;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+#container {
+  width: 80vw;
+  display: flex;
+}
+
+#container #wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#container #wrapper h1,
+h3 {
+  color: #ffffff;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+#container #wrapper h1 {
+  font-size: 5rem;
+}
+
+#container #wrapper h3 {
+  font-size: 2rem;
+}
+
+#container #cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+#container #opcoes button{
+  width: 10rem;
+  height: 3rem;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+#container #opcoes button img{
+  max-height: 100%;
+}
+
+#teclado {
+  height: 25%;
+  background-color: rgb(229, 213, 245);
+  width: 50%;
+}
