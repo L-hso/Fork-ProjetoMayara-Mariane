@@ -1,5 +1,6 @@
 window.addEventListener("load", ()=>{
-
+    const MAX_ERROS = 6;
+    let quantidade_erros = 0;
 
     // ESCOLHA DA PALAVRA ---------------
     const TEMAS_PERMITIDOS = ["Poluição do ar", "Poluição do solo"];
@@ -23,13 +24,11 @@ window.addEventListener("load", ()=>{
     const linha_da_forca = document.querySelector("#container #wrapper #linha");
 
     for (let index = 0; index < palavra_certa.length; index++) {
-        const campo = document.createElement("input");
-        campo.setAttribute("disabled", "true");
+        const campo = document.createElement("div");
 
         linha_da_forca.appendChild(campo);
     }
     // ----------------------------------------
-
 
 
     // TECLADO -------------------------------
@@ -47,18 +46,34 @@ window.addEventListener("load", ()=>{
             const tecla = document.createElement("button");
             tecla.innerText = letra; 
             tecla.classList = "tecla";
-
+            
             tecla.addEventListener("click", (e)=>{
-                if(palavra_certa.includes(e.target.innerText.toLowerCase())){
-                    e.target.classList = "tecla tecla_certa";
-                } else {
-                    e.target.classList = "tecla tecla_errada";
+
+                if(quantidade_erros < MAX_ERROS){
+                    if(palavra_certa.includes(e.target.innerText.toLowerCase())){
+                        e.target.classList = "tecla tecla_certa";
+                        for(let posicao = 0; posicao < linha_da_forca.childNodes.length;posicao++){
+                            if(palavra_certa[posicao]==e.target.innerText.toLowerCase()){
+                                console.log("ESTOU FUNCIONANDO")
+    
+                                linha_da_forca.children.item(posicao).innerText = e.target.innerText.toUpperCase();
+                            }
+                        }
+                        
+                    } 
+
+                    if(!palavra_certa.includes(e.target.innerText.toLowerCase()) && e.target.classList != "tecla tecla_errada") {
+                        e.target.classList = "tecla tecla_errada";
+
+                        const forca = document.querySelector("#container img");
+                        quantidade_erros++;
+                        forca.setAttribute("src", "./assets/" + "erro" + quantidade_erros + ".png");
+                    }
                 }
             })
 
-
-
             linha.appendChild(tecla);
+            
         })
     })
     // ---------------------------------------

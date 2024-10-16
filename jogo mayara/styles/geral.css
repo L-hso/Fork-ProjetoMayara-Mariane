@@ -21,7 +21,7 @@ body {
 
 #container {
   display: flex;
-  width: 66%;
+  width: 68%;
 }
 
 #container #wrapper {
@@ -97,7 +97,12 @@ body {
 }
 
 
-#container #wrapper #linha input{
+#container #wrapper #linha div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
   height: 5rem;
   width: 5rem;
   background-color: transparent;
@@ -105,7 +110,9 @@ body {
   border: none;
   border-bottom: 8px solid #fff;
 
-  caret-color: transparent;
+
+  font-size: 3rem;
+  font-weight: 700;
   color: #fff;
 }
 
