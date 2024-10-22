@@ -42,7 +42,7 @@ window.addEventListener("load", ()=>{
     }
     
     
-
+    
     teclado_linhas.forEach((linha, ind)=>{
         TECLADO_TECLAS[ind].forEach((letra)=>{
             const tecla = document.createElement("button");
@@ -51,7 +51,7 @@ window.addEventListener("load", ()=>{
             
             tecla.addEventListener("click", (e)=>{
 
-                if(quantidade_erros < MAX_ERROS){
+                if(quantidade_erros < MAX_ERROS  && Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase() != palavra_certa){
                     if(palavra_certa.includes(e.target.innerText.toLowerCase())){
                         e.target.classList = "tecla tecla_certa";
 
@@ -75,6 +75,18 @@ window.addEventListener("load", ()=>{
                     
                     }
                 }
+
+                if(palavra_certa == Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase()) {
+                    document.querySelector("#final h1").innerText = "Você ganhou!";
+                    document.querySelector("#final").style.display = "block";
+                    document.querySelector("#fundoescuro").style.display = "flex";
+                } 
+                
+                if(MAX_ERROS == quantidade_erros) {
+                    document.querySelector("#final h1").innerText = "Você é um bosta!";
+                    document.querySelector("#final").style.display = "block";
+                    document.querySelector("#fundoescuro").style.display = "flex";
+                }
             })
 
             linha.appendChild(tecla);
@@ -88,7 +100,7 @@ window.addEventListener("load", ()=>{
     window.addEventListener("keypress", (e)=>{
         const tecla_manual = e.key.toLowerCase();
 
-        if(quantidade_erros < MAX_ERROS){   
+        if(quantidade_erros < MAX_ERROS && Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase() != palavra_certa){   
         linha_da_forca.childNodes.forEach((campo, ind)=>{
             if(palavra_certa[ind] == tecla_manual){
                 campo.textContent = tecla_manual.toUpperCase();
@@ -116,10 +128,36 @@ window.addEventListener("load", ()=>{
                         
                 forca.setAttribute("src", "./assets/erro" + quantidade_erros + ".png"); 
             }
+
+
+    } 
+    
+    if(palavra_certa == Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase()) {
+        document.querySelector("#final h1").innerText = "Você ganhou!";
+        document.querySelector("#final").style.display = "block";
+        document.querySelector("#fundoescuro").style.display = "flex";
+    } 
+
+    if(MAX_ERROS == quantidade_erros) {
+        document.querySelector("#final h1").innerText = "Você é um bosta!";
+        document.querySelector("#final").style.display = "block";
+        document.querySelector("#fundoescuro").style.display = "flex";
     }
-    // -------------------------------------
+})
+// -------------------------------------
+
+    document.querySelector("#btn_dica").addEventListener("click", ()=>{
+        document.querySelector("#dica").style.display = "flex";
+        document.querySelector("#fundoescuro").style.display = "flex";
+    })
+
+    document.querySelectorAll(".fechar_btn").forEach((btn)=>{
+        btn.addEventListener("click", (e)=>{
+        document.querySelector("#fundoescuro").style.display = "none";
+        console.log(e.target.parentNode.parentNode);
+        e.target.parentNode.parentNode.style.display = "none";
+    })
+})
 
     
-
-    })
 })

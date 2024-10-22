@@ -156,3 +156,71 @@ body {
 #teclado .linha .tecla_certa{
   background-color: #94E56D;
 }
+
+#fundoescuro{
+  position: absolute;
+  z-index: 1000;
+
+  width: 100vw;
+  height: 100vh; 
+
+  background-color: rgba(0,0,0,0.23);
+  backdrop-filter: blur(6px);
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#dica { 
+  position: relative;
+
+  height: 35rem;
+  width: 50rem;
+  padding: 20px;
+  
+  background-color: #1B2B3A;
+  border-radius: 10px;
+  
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#dica #texto_dica {
+  width: 70%;
+  color: #fff;
+}
+
+#dica #texto_dica p {
+  text-align: center;
+
+  line-height: 1.5;
+}
+
+#dica img {
+  max-width: 75%;
+  border-radius: 1rem;
+}
+
+.fechar_btn{
+  background-color: transparent;
+  position: absolute;
+
+  top: 1rem;
+  right: 1rem;
+
+  cursor: pointer;
+}
+
+#final{
+  position: relative;
+
+  background-color: #1B2B3A;
+  padding: 2.5rem;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: white;
+  display: none;
+}
