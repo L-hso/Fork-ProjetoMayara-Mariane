@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0B1621;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background-color: #1B2B3A;
+    width: 600px;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px;
+    position: relative;
+}
+
+.text-content {
+    width: 70%;
+    padding-right: 20px;
+}
+
+.text-content p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.image-placeholder {
+    width: 30%;
+    background-color: #E0E0E0;
+    border-radius: 5px;
+}
+
+.keyboard {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
