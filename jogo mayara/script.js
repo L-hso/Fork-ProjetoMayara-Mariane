@@ -1,163 +1,258 @@
-window.addEventListener("load", ()=>{
-    const MAX_ERROS = 6;
-    let quantidade_erros = 0;
+window.addEventListener("load", () => {
+  const MAX_ERROS = 6;
+  let quantidade_erros = 0;
 
-    // ESCOLHA DA PALAVRA ---------------
-    const TEMAS_PERMITIDOS = ["Poluição do ar", "Poluição do solo"];
+  // ESCOLHA DA PALAVRA ---------------
+  const TEMAS_PERMITIDOS = [
+    "Poluição da água",
+    "Poluição do solo",
+    "Poluição do ar",
+  ];
 
-    const PALAVRAS_PERMITIDAS = {
-        "Poluição do ar": ["Enxofre", "Metano", "Chuva"],
-        "Poluição do solo": ["Uranio", "Chorume"]
-    };
+  const PALAVRAS_PERMITIDAS = {
+    "Poluição da água": [
+      {
+        palavra: "Contaminaçao",
+        texto_dica:
+          "Ocorre quando substâncias nocivas entram em contato com o meio ambiente, afetando a qualidade do solo, da água ou do ar, trazendo consequências negativas para os seres vivos."
+      },
+      {
+        palavra: "Esgoto",
+        texto_dica:
+          "Sistema invisível, mas essencial, que percorre subterrâneos e carrega águas sujas e restos indesejados. Sem mim, o caos e a poluição tomariam conta das ruas, garantindo a limpeza e o equilíbrio urbano."
+    },
+    ],
+    "Poluição do solo": [
+      {
+        palavra: "Uranio",
+        texto_dica:
+          "É um metal pesado, radioativo e prateado, que ocorre naturalmente em pequenas quantidades na crosta terrestre, especialmente em rochas, solos e águas."
 
+      },
+      {
+        palavra: "Chorume",
+        texto_dica:
+          "É o líquido resultante da decomposição de materiais orgânicos, especialmente em ambientes de aterros sanitários. Esse líquido também possui um cheiro bastante desagradável."
+      },
+      {
+        palavra: "Desmatamento",
+        texto_dica:
+          "Ação que remove o verde da paisagem, deixando o solo exposto e desabrigando animais. Causo desequilíbrios ambientais, mas ainda assim, continuo a ocorrer."
+      },
+    ],
+    "Poluição do ar": [
+      {
+        palavra: "Gases",
+        texto_dica:
+          "São um estado da matéria onde as moléculas estão distantes e se movem livremente, sem forma ou volume definidos."
+      },
+      {
+        palavra: "Atmosfera",
+        texto_dica:
+          "É a camada de gases que envolve a Terra, essencial para a vida. Qualquer contaminação ou mudança na sua composição pode afetar a qualidade do ar que respiramos e o clima global."
+      },
+      {
+        palavra: "Queimada",
+        texto_dica:
+          "Fogo em florestas que libera muita fumaça no ar. São focos de incêndio que ocorrem de maneira controlada ou descontrolada em áreas de vegetação, como florestas, campos e fazendas."
+      },
+    ],
+  };
 
-    //  
-    //"Poluição do ar": {"Enxofre": {"img":"./assets", "texto":"sda"}, "Chuva"};
-    
-    let tema_da_vez = TEMAS_PERMITIDOS[Math.round(Math.random() * (TEMAS_PERMITIDOS.length - 1))];
-    
-    let palavra_certa = PALAVRAS_PERMITIDAS[tema_da_vez][Math.round(Math.random() * (PALAVRAS_PERMITIDAS[tema_da_vez].length - 1))].toLowerCase();
+  // {palavra: "", texto_dica: "", imagem_dica: ""} exemplo
 
+  //
+  let ind_tema_da_vez = Math.round(
+    Math.random() * (TEMAS_PERMITIDOS.length - 1)
+  );
 
-    const dica = document.querySelector("#cabecalho h3");
-    dica.innerText = `O tema é: ${tema_da_vez}`;
-    
-    const linha_da_forca = document.querySelector("#container #wrapper #linha");
+  let tema_da_vez = TEMAS_PERMITIDOS[ind_tema_da_vez];
 
-    for (let index = 0; index < palavra_certa.length; index++) {
-        const campo = document.createElement("div");
+  let ind_palavra_certa = Math.round(
+    Math.random() * (PALAVRAS_PERMITIDAS[tema_da_vez].length - 1)
+  );
+  let palavra_certa =
+    PALAVRAS_PERMITIDAS[tema_da_vez][ind_palavra_certa].palavra.toLowerCase();
 
-        linha_da_forca.appendChild(campo);
-    }
-    // ----------------------------------------
+  const dica = document.querySelector("#cabecalho h3");
+  dica.innerText = `O tema é: ${tema_da_vez}`;
 
+  const linha_da_forca = document.querySelector("#container #wrapper #linha");
 
-    // TECLADO -------------------------------
-    const teclado_linhas = document.querySelectorAll("#teclado .linha");
+  for (let index = 0; index < palavra_certa.length; index++) {
+    const campo = document.createElement("div");
 
-    const TECLADO_TECLAS = {
-        0:["Q", "W", "E","R", "T", "Y", "U", "I", "O", "P"],
-        1:["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-        2:["Z", "X", "C", "V", "B", "N", "M"]
-    }
-    
-    
-    
-    teclado_linhas.forEach((linha, ind)=>{
-        TECLADO_TECLAS[ind].forEach((letra)=>{
-            const tecla = document.createElement("button");
-            tecla.innerText = letra; 
-            tecla.classList = "tecla";
-            
-            tecla.addEventListener("click", (e)=>{
+    linha_da_forca.appendChild(campo);
+  }
+  // ----------------------------------------
 
-                if(quantidade_erros < MAX_ERROS  && Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase() != palavra_certa){
-                    if(palavra_certa.includes(e.target.innerText.toLowerCase())){
-                        e.target.classList = "tecla tecla_certa";
+  // TECLADO DIGITAL -------------------------------
 
+  const teclado_linhas = document.querySelectorAll("#teclado .linha");
 
-                        for(let posicao = 0; posicao < linha_da_forca.childNodes.length; posicao++){
-                            if(palavra_certa[posicao] == e.target.innerText.toLowerCase()){
-                                linha_da_forca.children.item(posicao).innerText = e.target.innerText.toUpperCase();
-                            }
-                        }
-                        
-                    } 
-        
-                    if( !palavra_certa.includes(e.target.innerText.toLowerCase()) && e.target.classList != "tecla tecla_errada") {
-                        e.target.classList = "tecla tecla_errada";
+  const TECLADO_TECLAS = {
+    0: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    1: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ç"],
+    2: ["Z", "X", "C", "V", "B", "N", "M"],
+  };
 
-                        const forca = document.querySelector("#container img");
+  teclado_linhas.forEach((linha, ind) => {
+    TECLADO_TECLAS[ind].forEach((letra) => {
+      const tecla = document.createElement("button");
+      tecla.innerText = letra;
+      tecla.classList = "tecla";
 
-                        quantidade_erros++;
-                        
-                        forca.setAttribute("src", "./assets/erro" + quantidade_erros + ".png"); 
-                    
-                    }
-                }
+      tecla.addEventListener("click", (e) => {
+        if (
+          quantidade_erros < MAX_ERROS &&
+          Array.from(linha_da_forca.children)
+            .reduce((a, b) => a + b.innerText, "")
+            .toLowerCase() != palavra_certa
+        ) {
+          if (palavra_certa.includes(e.target.innerText.toLowerCase())) {
+            e.target.classList = "tecla tecla_certa";
 
-                if(palavra_certa == Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase()) {
-                    document.querySelector("#final h1").innerText = "Você ganhou!";
-                    document.querySelector("#final").style.display = "block";
-                    document.querySelector("#fundoescuro").style.display = "flex";
-                } 
-                
-                if(MAX_ERROS == quantidade_erros) {
-                    document.querySelector("#final h1").innerText = "Você é um bosta!";
-                    document.querySelector("#final").style.display = "block";
-                    document.querySelector("#fundoescuro").style.display = "flex";
-                }
-            })
-
-            linha.appendChild(tecla);
-
-        })
-    })
-    // ---------------------------------------
-    const teclas = document.querySelectorAll("#teclado .linha .tecla");
-    
-    // TECLADO MANUAL ------------------------
-    window.addEventListener("keypress", (e)=>{
-        const tecla_manual = e.key.toLowerCase();
-
-        if(quantidade_erros < MAX_ERROS && Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase() != palavra_certa){   
-        linha_da_forca.childNodes.forEach((campo, ind)=>{
-            if(palavra_certa[ind] == tecla_manual){
-                campo.textContent = tecla_manual.toUpperCase();
+            for (
+              let posicao = 0;
+              posicao < linha_da_forca.childNodes.length;
+              posicao++
+            ) {
+              if (palavra_certa[posicao] == e.target.innerText.toLowerCase()) {
+                linha_da_forca.children.item(posicao).innerText =
+                  e.target.innerText.toUpperCase();
+              }
             }
-        })
-                
-        
-            if(palavra_certa.includes(tecla_manual)){
-            teclas.forEach((tecla)=>{
-                if(tecla.textContent.toLowerCase() == tecla_manual && tecla.classList != "tecla tecla_certa"){
-                    tecla.classList = "tecla tecla_certa";
-                }
-            })
+          }
 
-            } else {
-                teclas.forEach((tecla)=>{
-                    if(tecla.innerText.toLowerCase() == tecla_manual && tecla.classList != "tecla tecla_errada"){
-                        tecla.classList = "tecla tecla_errada";
-                    }
-                })
+          if (
+            !palavra_certa.includes(e.target.innerText.toLowerCase()) &&
+            e.target.classList != "tecla tecla_errada"
+          ) {
+            e.target.classList = "tecla tecla_errada";
 
-                 const forca = document.querySelector("#container img");
+            const forca = document.querySelector("#container img");
 
-                quantidade_erros++;
-                        
-                forca.setAttribute("src", "./assets/erro" + quantidade_erros + ".png"); 
+            quantidade_erros++;
+
+            forca.setAttribute(
+              "src",
+              "./assets/erro" + quantidade_erros + ".png"
+            );
+          }
+        }
+
+        if (
+          palavra_certa ==
+          Array.from(linha_da_forca.children)
+            .reduce((a, b) => a + b.innerText, "")
+            .toLowerCase()
+        ) {
+          document.querySelector("#final h1").innerText = "Você ganhou!";
+          document.querySelector("#final").style.display = "block";
+          document.querySelector("#fundoescuro").style.display = "flex";
+        }
+
+        if (MAX_ERROS == quantidade_erros) {
+          document.querySelector("#final h1").innerText = "Você é um bosta!";
+          document.querySelector("#final").style.display = "block";
+          document.querySelector("#fundoescuro").style.display = "flex";
+        }
+      });
+
+      linha.appendChild(tecla);
+    });
+  });
+  // ---------------------------------------
+  const teclas = document.querySelectorAll("#teclado .linha .tecla");
+
+  // TECLADO MANUAL ------------------------
+  const regex_teclas = /\b[a-zÀ-ÿ]\b/;
+
+  window.addEventListener("keypress", (e) => {
+    const tecla_manual = e.key.toLowerCase();
+
+    if (regex_teclas.test(tecla_manual) || tecla_manual == "ç") {
+      if (
+        quantidade_erros < MAX_ERROS &&
+        Array.from(linha_da_forca.children)
+          .reduce((a, b) => a + b.innerText, "")
+          .toLowerCase() != palavra_certa
+      ) {
+        linha_da_forca.childNodes.forEach((campo, ind) => {
+          if (palavra_certa[ind] == tecla_manual) {
+            campo.textContent = tecla_manual.toUpperCase();
+          }
+        });
+
+        if (palavra_certa.includes(tecla_manual)) {
+          teclas.forEach((tecla) => {
+            if (
+              tecla.textContent.toLowerCase() == tecla_manual &&
+              tecla.classList != "tecla tecla_certa"
+            ) {
+              tecla.classList = "tecla tecla_certa";
             }
+          });
+        } else {
+          teclas.forEach((tecla) => {
+            if (
+              tecla.innerText.toLowerCase() == tecla_manual &&
+              tecla.classList != "tecla tecla_errada"
+            ) {
+              tecla.classList = "tecla tecla_errada";
+            }
+          });
 
+          const forca = document.querySelector("#container img");
 
-    } 
-    
-    if(palavra_certa == Array.from(linha_da_forca.children).reduce((a, b)=>a + b.innerText, "").toLowerCase()) {
+          quantidade_erros++;
+
+          forca.setAttribute(
+            "src",
+            "./assets/erro" + quantidade_erros + ".png"
+          );
+        }
+      }
+
+      if (
+        palavra_certa ==
+        Array.from(linha_da_forca.children)
+          .reduce((a, b) => a + b.innerText, "")
+          .toLowerCase()
+      ) {
         document.querySelector("#final h1").innerText = "Você ganhou!";
         document.querySelector("#final").style.display = "block";
         document.querySelector("#fundoescuro").style.display = "flex";
-    } 
+      }
 
-    if(MAX_ERROS == quantidade_erros) {
-        document.querySelector("#final h1").innerText = "Você é um bosta!";
+      if (MAX_ERROS == quantidade_erros) {
+        document.querySelector("#final h1").innerText = "Você Perdeu!";
         document.querySelector("#final").style.display = "block";
         document.querySelector("#fundoescuro").style.display = "flex";
+      }
     }
-})
-// -------------------------------------
+  });
+  // -------------------------------------
 
-    document.querySelector("#btn_dica").addEventListener("click", ()=>{
-        document.querySelector("#dica").style.display = "flex";
-        document.querySelector("#fundoescuro").style.display = "flex";
-    })
+  // DICA --------------------------------
 
-    document.querySelectorAll(".fechar_btn").forEach((btn)=>{
-        btn.addEventListener("click", (e)=>{
-        document.querySelector("#fundoescuro").style.display = "none";
-        console.log(e.target.parentNode.parentNode);
-        e.target.parentNode.parentNode.style.display = "none";
-    })
-})
+  document.querySelector("#dica #texto_dica").innerText =
+    PALAVRAS_PERMITIDAS[tema_da_vez][ind_palavra_certa].texto_dica;
 
-    
-})
+  document.querySelector("#btn_dica").addEventListener("click", () => {
+    document.querySelector("#dica").style.display = "flex";
+    document.querySelector("#fundoescuro").style.display = "flex";
+  });
+
+  document.querySelector("#dica .fechar_btn").addEventListener("click", () => {
+    document.querySelector("#dica").style.display = "none";
+    document.querySelector("#fundoescuro").style.display = "none";
+  });
+
+  document.querySelector("#final .fechar_btn").addEventListener("click", () => {
+    document.querySelector("#final").style.display = "none";
+    document.querySelector("#fundoescuro").style.display = "none";
+  });
+
+  // --------------------------------------
+});

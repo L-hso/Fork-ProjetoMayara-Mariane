@@ -7,10 +7,7 @@
     <title>Jogo da Forca</title>
     <link rel="stylesheet" href="./styles/geral.css">
 </head>
-
 <body>
-
-
     <div id="container">
         <img src="./assets/Forcaimagem.png" alt="">
         <div id="wrapper">
@@ -32,31 +29,27 @@
         <div class="linha"></div>
         <div class="linha"></div>
     </div>
-    
 </div>
-
 <div id="fundoescuro">
     <article id="dica">
-        <button class="fechar_btn">
+        <div id="texto_dica">
+            <p>
+                Sistema invisível, mas essencial, que percorre subterrâneos e carrega águas sujas e restos
+                indesejados. Sem mim, o caos e a poluição tomariam conta das ruas, garantindo a limpeza e o
+                equilíbrio urbano. Quem sou eu?
+            </p>
+        </div>
+            <button class="fechar_btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="lucide lucide-x">
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />
             </svg>
-        </button>
-            <img src="./assets/desmatamento.jpg" alt="">
-            <div id="texto_dica">
-                <p>
-                    Sistema invisível, mas essencial, que percorre subterrâneos e carrega águas sujas e restos
-                    indesejados. Sem mim, o caos e a poluição tomariam conta das ruas, garantindo a limpeza e o
-                    equilíbrio urbano. Quem sou eu?
-                </p>
-            </div>
+            </button>
         </article>
-
-
         <article id="final">
+            <h1>Você <span>perdeu</span>!</h1>
             <button class="fechar_btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -65,10 +58,8 @@
                     <path d="m6 6 12 12" />
                 </svg>
             </button>
-            <h1>Você <span>perdeu</span>!</h1>
         </article>
     </div>
 </body>
 <script src="script.js"></script>
-
 </html>
