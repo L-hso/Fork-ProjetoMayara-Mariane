@@ -14,47 +14,46 @@ window.addEventListener("load", () => {
       {
         palavra: "Contaminaçao",
         texto_dica:
-          "Ocorre quando substâncias nocivas entram em contato com o meio ambiente, afetando a qualidade do solo, da água ou do ar, trazendo consequências negativas para os seres vivos."
+          "Ocorre quando substâncias nocivas entram em contato com o meio ambiente, afetando a qualidade do solo, da água ou do ar, trazendo consequências negativas para os seres vivos.",
       },
       {
         palavra: "Esgoto",
         texto_dica:
-          "Sistema invisível, mas essencial, que percorre subterrâneos e carrega águas sujas e restos indesejados. Sem mim, o caos e a poluição tomariam conta das ruas, garantindo a limpeza e o equilíbrio urbano."
-    },
+          "Sistema invisível, mas essencial, que percorre subterrâneos e carrega águas sujas e restos indesejados. Sem mim, o caos e a poluição tomariam conta das ruas, garantindo a limpeza e o equilíbrio urbano.",
+      },
     ],
     "Poluição do solo": [
       {
         palavra: "Uranio",
         texto_dica:
-          "É um metal pesado, radioativo e prateado, que ocorre naturalmente em pequenas quantidades na crosta terrestre, especialmente em rochas, solos e águas."
-
+          "É um metal pesado, radioativo e prateado, que ocorre naturalmente em pequenas quantidades na crosta terrestre, especialmente em rochas, solos e águas.",
       },
       {
         palavra: "Chorume",
         texto_dica:
-          "É o líquido resultante da decomposição de materiais orgânicos, especialmente em ambientes de aterros sanitários. Esse líquido também possui um cheiro bastante desagradável."
+          "É o líquido resultante da decomposição de materiais orgânicos, especialmente em ambientes de aterros sanitários. Esse líquido também possui um cheiro bastante desagradável.",
       },
       {
         palavra: "Desmatamento",
         texto_dica:
-          "Ação que remove o verde da paisagem, deixando o solo exposto e desabrigando animais. Causo desequilíbrios ambientais, mas ainda assim, continuo a ocorrer."
+          "Ação que remove o verde da paisagem, deixando o solo exposto e desabrigando animais. Causo desequilíbrios ambientais, mas ainda assim, continuo a ocorrer.",
       },
     ],
     "Poluição do ar": [
       {
         palavra: "Gases",
         texto_dica:
-          "São um estado da matéria onde as moléculas estão distantes e se movem livremente, sem forma ou volume definidos."
+          "São um estado da matéria onde as moléculas estão distantes e se movem livremente, sem forma ou volume definidos.",
       },
       {
         palavra: "Atmosfera",
         texto_dica:
-          "É a camada de gases que envolve a Terra, essencial para a vida. Qualquer contaminação ou mudança na sua composição pode afetar a qualidade do ar que respiramos e o clima global."
+          "É a camada de gases que envolve a Terra, essencial para a vida. Qualquer contaminação ou mudança na sua composição pode afetar a qualidade do ar que respiramos e o clima global.",
       },
       {
         palavra: "Queimada",
         texto_dica:
-          "Fogo em florestas que libera muita fumaça no ar. São focos de incêndio que ocorrem de maneira controlada ou descontrolada em áreas de vegetação, como florestas, campos e fazendas."
+          "Fogo em florestas que libera muita fumaça no ar. São focos de incêndio que ocorrem de maneira controlada ou descontrolada em áreas de vegetação, como florestas, campos e fazendas.",
       },
     ],
   };
@@ -176,7 +175,8 @@ window.addEventListener("load", () => {
         quantidade_erros < MAX_ERROS &&
         Array.from(linha_da_forca.children)
           .reduce((a, b) => a + b.innerText, "")
-          .toLowerCase() != palavra_certa
+          .toLowerCase() != palavra_certa &&
+        document.querySelector("#dica").style.display != "flex"
       ) {
         linha_da_forca.childNodes.forEach((campo, ind) => {
           if (palavra_certa[ind] == tecla_manual) {
@@ -216,16 +216,20 @@ window.addEventListener("load", () => {
 
       if (
         palavra_certa ==
-        Array.from(linha_da_forca.children)
-          .reduce((a, b) => a + b.innerText, "")
-          .toLowerCase()
+          Array.from(linha_da_forca.children)
+            .reduce((a, b) => a + b.innerText, "")
+            .toLowerCase() &&
+        document.querySelector("#dica").style.display != "flex"
       ) {
         document.querySelector("#final h1").innerText = "Você ganhou!";
         document.querySelector("#final").style.display = "block";
         document.querySelector("#fundoescuro").style.display = "flex";
       }
 
-      if (MAX_ERROS == quantidade_erros) {
+      if (
+        MAX_ERROS == quantidade_erros &&
+        document.querySelector("#dica").style.display != "flex"
+      ) {
         document.querySelector("#final h1").innerText = "Você Perdeu!";
         document.querySelector("#final").style.display = "block";
         document.querySelector("#fundoescuro").style.display = "flex";
