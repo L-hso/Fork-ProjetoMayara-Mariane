@@ -152,7 +152,7 @@ window.addEventListener("load", () => {
         }
 
         if (MAX_ERROS == quantidade_erros) {
-          document.querySelector("#final h1").innerText = "Você é um bosta!";
+          document.querySelector("#final h1").innerText = "Você perdeu!";
           document.querySelector("#final").style.display = "block";
           document.querySelector("#fundoescuro").style.display = "flex";
         }
